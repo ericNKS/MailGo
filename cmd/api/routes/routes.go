@@ -7,5 +7,5 @@ import (
 )
 
 func Routes(r *gin.Engine) {
-	r.POST("/", handler.StartCampaign)
+	r.POST("/email/campaigns", handler.StartCampaign)
 }
