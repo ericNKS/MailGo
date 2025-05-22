@@ -51,7 +51,7 @@ func CreateCampaign(email *model.Mail, to []string, mensagem *model.Message) (*c
 
 func (campaign *createCampaign) Execute(wg *sync.WaitGroup) error {
 	defer wg.Done()
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
 	if err != nil {
 		log.Panicf("%s: %s", "Failed to connect to RabbitMQ", err)
 		return err

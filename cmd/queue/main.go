@@ -5,12 +5,14 @@ import (
 	"log"
 	"sendMail/internal/model"
 	"sendMail/internal/service"
+	"time"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func main() {
-	con, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	time.Sleep(10 * time.Second)
+	con, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
 	if err != nil {
 		log.Panicf("%s: %s", "Falha ao fazer a conexao", err)
 	}
@@ -64,8 +66,6 @@ func main() {
 					service.ExecuteSendMail(&cp.Remetente, &cp.Mensagem, d)
 				}
 			}()
-
-			log.Printf("Success: %+v", cp.Remetente)
 		}
 	}()
 	<-forever
